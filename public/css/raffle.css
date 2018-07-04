@@ -1,0 +1,26 @@
+body {
+	background: linear-gradient(to left, rgb(17,17,209), rgb(53, 127, 208));
+    background-attachment: fixed;
+    color: white;    
+    font-family: 'Montserrat',"HelveticaNeue","Helvetica Neue",sans-serif;
+}
+
+.raffle_form {
+    max-width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#button {
+	color: black;
+}
+
+.shoe-image {
+	border: 10px solid;
+	border-color: #F8F8F8;
+	border-radius: 10px;
+}
+
+.size-buttons {
+	padding: 0 40px 0 40px;
+}

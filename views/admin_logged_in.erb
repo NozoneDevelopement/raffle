@@ -1,0 +1,120 @@
+<%= erb :header %>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" action="toggle_raffle">
+                <input type="submit" value="Toggle raffle">
+                <label>Raffle: 
+                <% if $active_raffle %>
+                    ACTIVE</label>
+                <% else %>
+                    INACTIVE</label>
+                <% end %>
+            </form>
+            <br>
+
+            <form method="post" action="shoe_name">
+                <input type="text" placeholder="shoe name" name="shoe_name">
+                <input type="submit" value="set shoe name">
+            </form>
+
+            <form method="post" action="clear_database">
+                <input type="submit" value="Clear user tables">
+            </form>
+            <br>
+            
+            <table style="table-layout: fixed; width: 100%">
+                <tr>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Shoe Size</th>
+                    <th>PayPal email</th>
+                    <th>Instagram Handle</th>
+                </tr>
+                <% $users.each do |user| %>
+                    <tr>
+                        <td style="word-wrap: break-word"><%=h user[:user_id] %></td>
+                        <td style="word-wrap: break-word"><%=h user[:name] %></td>
+                        <td style="word-wrap: break-word"><%=h user[:shoe_size] %></td>
+                        <td style="word-wrap: break-word"><%=h user[:paypal_email] %></td>
+                        <td style="word-wrap: break-word"><%=h user[:instagram_handle] %></td>
+                        <td>
+                            <form method="post" action="remove_user">
+                                <input type="hidden" name="user_to_remove" value="<%=h user[:user_id] %>">
+                                <input type="submit" value="remove">
+                            </form>
+                        </td>
+                    </tr>
+                <% end %>
+            </table>
+            <br>
+
+            <form method="post" action="add_size">
+                <label>Add shoe size</label>
+                <input type="text" placeholder="shoe size" name="shoe_size">
+                <br>
+                <input type="submit" value="Enter">
+            </form>
+            <br>
+
+            <table>
+                <tr>
+                    <th>Shoe Sizes</th>
+                    <th></th>
+                </tr>
+                <% $shoe_sizes.each do |size| %>
+                    <tr>
+                        <td><%=h size[:shoe_size] %></td>
+                        <td>
+                            <form method="post" action="remove_size">
+                                <input type="hidden" name="size_to_remove" value="<%=h size[:shoe_size] %>">
+                                <input type="submit" value="remove">
+                            </form>
+                        </td> 
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h1>New entries</h1>
+
+            <form method="get" action="admin_logged_in">
+                <input type="submit" value="Refresh">
+            </form>
+
+            <table style="table-layout: fixed; width: 100%">
+                <tr>
+                    <th>New User Id</th>
+                    <th>Name</th>
+                    <th>Shoe Size</th>
+                    <th>PayPal email</th>
+                    <th>Instagram Handle</th>
+                </tr>
+                <% $new_users.each do |user| %>
+                    <% if user[:approved] == nil %>
+                        <tr>
+                            <td style="word-wrap: break-word"><%=h user[:new_user_id] %></td>
+                            <td style="word-wrap: break-word"><%=h user[:name] %></td>
+                            <td style="word-wrap: break-word"><%=h user[:shoe_size] %></td>
+                            <td style="word-wrap: break-word"><%=h user[:paypal_email] %></td>
+                            <td style="word-wrap: break-word"><%=h user[:instagram_handle] %></td>
+                            <td>
+                                <form method="post" action="approve_user">
+                                    <input type="hidden" name="user_to_approve" value="<%=h user[:new_user_id] %>">
+                                    <input type="submit" value="approve">
+                                </form>
+                            </td>
+                            <td>                        
+                                <form method="post" action="unapprove_user">
+                                    <input type="hidden" name="user_to_unapprove" value="<%=h user[:new_user_id] %>">
+                                    <input type="submit" value="unapprove">
+                                </form>
+                            </td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </table>
+        </div>
+    </div>
+
+<%= erb :footer %>

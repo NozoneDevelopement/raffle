@@ -1,0 +1,56 @@
+<%= erb :header %>
+    
+    <link href="css/raffle.css" rel="stylesheet" type="text/css">    
+
+    <h1 class = "text-center">RAFFLE</h1>
+
+    <form method="post" action="submit_data" class = "raffle_form">
+        <% if $error_message != "" && $error_message != nil%>
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><%= $error_message %></strong>
+            </div>
+        <% end %>
+
+        <div class = "form-row">
+            <div class = "form-group col-md-8">
+                <h3><%= $shoe_name%></h3>
+                <img class="shoe-image center-block img-responsive" src="images/crocs.jpeg" alt="Shoe">
+                <br>
+                <div btn-group btn-group-toggle" data-toggle="buttons" class="size-buttons">
+                    <% $shoe_sizes.each do |size| %>
+                        <label class="btn btn-default">
+                            <input type="radio" name="shoe_size" value="<%= size[:shoe_size]%>">
+                            <%=h size[:shoe_size]%>
+                        </label>
+                    <% end %>
+                </div>
+            </div>
+
+            <div class = "form-group col-md-4">
+            	<label>Name</label>
+                <input type="text" placeholder="Name" name="name" class="form-control">
+            </div>
+
+            <div class = "form-group col-md-4">
+                <label>PayPal email</label>
+                <input type="text" placeholder="PayPal email" name="paypal_email" class="form-control">
+            </div>
+
+            <div class = "form-group col-md-4">
+                <label>Confirm PayPal email</label>
+                <input type="text" placeholder="PayPal email" name="confirm_paypal_email" class="form-control">
+            </div>
+
+            <div class = "form-group col-md-4">
+                <label>Instagram Handle</label>
+                <input type="text" placeholder="Instagram handle" name="instagram_handle" class="form-control">
+            </div>
+
+            <div class = "form-group col-md-4">
+                <input type="submit" value="Enter" class="btn btn-block" id="button">
+            </div>
+        </div>
+    </form>
+
+<%= erb :footer %>
